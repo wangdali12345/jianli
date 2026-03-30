@@ -7,103 +7,242 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
             font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-            background: #fafafa;
+            background: #f8f9fa;
             color: #1a1a1a;
             line-height: 1.6;
             -webkit-font-smoothing: antialiased;
         }
-        .container { max-width: 800px; margin: 0 auto; padding: 60px 24px; }
+
+        /* Animated BG */
+        .bg-waves {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            z-index: -1;
+            overflow: hidden;
+        }
+        .wave {
+            position: absolute;
+            bottom: 0; left: 0; width: 200%;
+            height: 100%;
+            background: linear-gradient(180deg, #667eea15 0%, transparent 60%);
+            animation: waveMove 20s ease-in-out infinite;
+        }
+        .wave:nth-child(2) { animation-delay: -5s; opacity: 0.5; }
+        .wave:nth-child(3) { animation-delay: -10s; opacity: 0.3; }
+        @keyframes waveMove {
+            0%, 100% { transform: translateX(0) translateY(0); }
+            50% { transform: translateX(-25%) translateY(-20px); }
+        }
+
+        .container { max-width: 900px; margin: 0 auto; padding: 40px 24px; }
 
         /* Header */
         .header {
             display: flex;
             gap: 32px;
-            align-items: flex-start;
-            margin-bottom: 48px;
-            padding-bottom: 40px;
-            border-bottom: 1px solid #e5e5e5;
+            align-items: center;
+            margin-bottom: 40px;
+            padding: 32px;
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+            opacity: 0;
+            animation: fadeUp 0.6s ease forwards;
+        }
+        @keyframes fadeUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
         }
         .avatar {
-            width: 88px; height: 88px; border-radius: 50%;
+            width: 100px; height: 100px; border-radius: 50%;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             display: flex; align-items: center; justify-content: center;
-            font-size: 32px; font-weight: 600; color: white; flex-shrink: 0;
+            font-size: 40px; font-weight: 700; color: white; flex-shrink: 0;
+            box-shadow: 0 8px 30px rgba(102, 126, 234, 0.3);
+            position: relative;
         }
-        .header-info { flex: 1; }
-        .header-info h1 { font-size: 36px; font-weight: 700; letter-spacing: -0.5px; margin-bottom: 4px; }
-        .title { font-size: 18px; color: #666; font-weight: 400; margin-bottom: 12px; }
+        .avatar::after {
+            content: '';
+            position: absolute;
+            inset: -4px;
+            border-radius: 50%;
+            border: 2px dashed #667eea;
+            animation: spin 20s linear infinite;
+        }
+        @keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+        .header-info h1 { font-size: 32px; font-weight: 700; margin-bottom: 4px; }
+        .title { font-size: 16px; color: #667eea; font-weight: 500; margin-bottom: 12px; }
         .tags { display: flex; gap: 8px; flex-wrap: wrap; }
-        .tag { padding: 4px 12px; background: #f0f0f0; border-radius: 100px; font-size: 13px; font-weight: 500; color: #333; }
-        .contact-list { display: flex; gap: 24px; margin-top: 16px; flex-wrap: wrap; font-size: 14px; color: #666; }
+        .tag { padding: 4px 14px; background: #f0f4ff; border-radius: 100px; font-size: 12px; font-weight: 500; color: #667eea; }
+        .contact-row { display: flex; gap: 20px; margin-top: 16px; flex-wrap: wrap; font-size: 13px; color: #666; }
+
+        /* Stats */
+        .stats-row {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 16px;
+            margin-bottom: 32px;
+        }
+        .stat-card {
+            background: white;
+            border-radius: 12px;
+            padding: 20px;
+            text-align: center;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.04);
+            opacity: 0;
+            animation: fadeUp 0.6s ease forwards;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        .stat-card:hover { transform: translateY(-4px); box-shadow: 0 8px 24px rgba(0,0,0,0.08); }
+        .stat-card:nth-child(1) { animation-delay: 0.1s; }
+        .stat-card:nth-child(2) { animation-delay: 0.2s; }
+        .stat-card:nth-child(3) { animation-delay: 0.3s; }
+        .stat-card:nth-child(4) { animation-delay: 0.4s; }
+        .stat-icon { font-size: 28px; margin-bottom: 8px; }
+        .stat-value { font-size: 28px; font-weight: 700; color: #667eea; }
+        .stat-label { font-size: 12px; color: #999; margin-top: 4px; }
 
         /* Section */
-        .section { margin-bottom: 40px; }
-        .section-title { font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; color: #999; margin-bottom: 16px; }
+        .section {
+            margin-bottom: 32px;
+            opacity: 0;
+            animation: fadeUp 0.6s ease forwards;
+        }
+        .section-title {
+            font-size: 14px; font-weight: 600; text-transform: uppercase;
+            letter-spacing: 1px; color: #999; margin-bottom: 16px;
+            display: flex; align-items: center; gap: 8px;
+        }
+        .section-title::after {
+            content: ''; flex: 1; height: 1px; background: #eee;
+        }
+
+        /* Cards */
+        .card {
+            background: white;
+            border-radius: 16px;
+            padding: 24px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 16px rgba(0,0,0,0.04);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        .card:hover { transform: translateY(-2px); box-shadow: 0 8px 30px rgba(0,0,0,0.08); }
 
         /* Info Grid */
         .info-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
-        .info-item { padding: 16px; background: white; border-radius: 8px; border: 1px solid #eee; }
-        .info-label { font-size: 11px; color: #999; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 4px; }
-        .info-value { font-size: 14px; font-weight: 500; color: #1a1a1a; }
+        .info-item {
+            padding: 16px; background: #f8f9fa; border-radius: 10px;
+            border-left: 3px solid #667eea;
+        }
+        .info-label { font-size: 11px; color: #999; text-transform: uppercase; margin-bottom: 4px; }
+        .info-value { font-size: 14px; font-weight: 600; }
 
-        /* Experience */
-        .exp-item { padding: 20px 0; border-bottom: 1px solid #f0f0f0; }
-        .exp-item:last-child { border-bottom: none; padding-bottom: 0; }
-        .exp-header { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 8px; }
-        .exp-title { font-size: 16px; font-weight: 600; }
-        .exp-date { font-size: 13px; color: #999; }
-        .exp-company { font-size: 14px; color: #666; margin-bottom: 8px; }
-        .exp-desc { font-size: 14px; color: #555; line-height: 1.8; }
+        /* Skills Grid */
+        .skills-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+        .skill-item { margin-bottom: 14px; }
+        .skill-header { display: flex; justify-content: space-between; margin-bottom: 6px; font-size: 13px; }
+        .skill-name { font-weight: 500; }
+        .skill-percent { color: #667eea; font-weight: 600; }
+        .skill-bar { height: 8px; background: #f0f4ff; border-radius: 4px; overflow: hidden; }
+        .skill-fill { height: 100%; background: linear-gradient(90deg, #667eea, #764ba2); border-radius: 4px; width: 0; transition: width 1.2s ease; }
 
-        /* Skills */
-        .skills { display: flex; flex-wrap: wrap; gap: 8px; }
-        .skill { padding: 8px 16px; background: white; border: 1px solid #e0e0e0; border-radius: 6px; font-size: 13px; font-weight: 500; }
+        /* Timeline */
+        .timeline { position: relative; padding-left: 28px; }
+        .timeline::before {
+            content: ''; position: absolute; left: 8px; top: 0; bottom: 0;
+            width: 2px; background: linear-gradient(180deg, #667eea, #764ba2);
+        }
+        .timeline-item { position: relative; padding-bottom: 24px; }
+        .timeline-item::before {
+            content: ''; position: absolute; left: -24px; top: 4px;
+            width: 14px; height: 14px; background: white; border: 3px solid #667eea;
+            border-radius: 50%; box-shadow: 0 0 0 4px rgba(102,126,234,0.2);
+        }
+        .timeline-date { font-size: 12px; color: #667eea; font-weight: 600; margin-bottom: 4px; }
+        .timeline-title { font-size: 16px; font-weight: 600; margin-bottom: 2px; }
+        .timeline-sub { font-size: 13px; color: #666; margin-bottom: 8px; }
+        .timeline-desc { font-size: 13px; color: #555; line-height: 1.7; }
 
         /* Awards */
-        .awards { display: flex; flex-direction: column; gap: 10px; }
-        .award { display: flex; align-items: flex-start; gap: 10px; font-size: 14px; color: #333; }
-        .award::before { content: '🏆'; flex-shrink: 0; }
+        .awards-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; }
+        .award {
+            display: flex; align-items: center; gap: 12px;
+            padding: 14px 16px; background: #f8f9fa; border-radius: 10px;
+            transition: all 0.3s;
+        }
+        .award:hover { background: #f0f4ff; transform: translateX(4px); }
+        .award-icon { font-size: 24px; }
+        .award-text { font-size: 13px; }
+        .award-highlight { color: #667eea; font-weight: 600; }
+
+        /* Chart */
+        .chart-container { position: relative; height: 280px; }
 
         /* Projects */
-        .project { padding: 16px 0; border-bottom: 1px solid #f0f0f0; }
-        .project:last-child { border-bottom: none; padding-bottom: 0; }
-        .project-title { font-size: 15px; font-weight: 600; margin-bottom: 6px; }
-        .project-desc { font-size: 13px; color: #666; line-height: 1.7; }
+        .project-card {
+            padding: 20px; background: #f8f9fa; border-radius: 12px;
+            margin-bottom: 16px; border-left: 4px solid #667eea;
+            transition: all 0.3s;
+        }
+        .project-card:hover { background: #f0f4ff; }
+        .project-title { font-size: 15px; font-weight: 600; margin-bottom: 8px; color: #667eea; }
+        .project-desc { font-size: 13px; color: #555; line-height: 1.7; }
 
-        /* Self Eval */
-        .eval { padding: 20px; background: #f9f9f9; border-radius: 8px; border-left: 3px solid #667eea; font-size: 14px; color: #555; line-height: 1.9; }
+        /* Eval */
+        .eval-box {
+            padding: 24px; background: linear-gradient(135deg, #667eea08, #764ba208);
+            border-radius: 12px; border: 1px solid #667eea20;
+            font-size: 14px; color: #555; line-height: 2;
+        }
+
+        /* Activities */
+        .activity-list { display: flex; flex-direction: column; gap: 12px; }
+        .activity {
+            display: flex; align-items: center; gap: 12px;
+            padding: 12px 16px; background: #f8f9fa; border-radius: 8px;
+            font-size: 13px;
+        }
+        .activity::before { content: '→'; color: #667eea; font-weight: 600; }
 
         /* Footer */
-        .footer { margin-top: 60px; padding-top: 24px; border-top: 1px solid #eee; text-align: center; font-size: 12px; color: #999; }
+        .footer { margin-top: 48px; padding: 24px; text-align: center; font-size: 12px; color: #999; }
 
-        @media (max-width: 640px) {
-            .container { padding: 40px 20px; }
-            .header { flex-direction: column; align-items: center; text-align: center; }
+        @media (max-width: 768px) {
+            .container { padding: 24px 16px; }
+            .header { flex-direction: column; text-align: center; }
+            .stats-row { grid-template-columns: repeat(2, 1fr); }
+            .skills-grid { grid-template-columns: 1fr; }
+            .awards-grid { grid-template-columns: 1fr; }
             .info-grid { grid-template-columns: repeat(2, 1fr); }
-            .contact-list { justify-content: center; }
-            .exp-header { flex-direction: column; }
         }
-        @media print { body { background: white; } .container { padding: 0; max-width: 100%; } }
+        @media print { body { background: white; } .bg-waves { display: none; } }
     </style>
 </head>
 <body>
+    <div class="bg-waves">
+        <div class="wave"></div>
+        <div class="wave"></div>
+        <div class="wave"></div>
+    </div>
+
     <div class="container">
         <!-- Header -->
         <div class="header">
             <div class="avatar">王</div>
             <div class="header-info">
                 <h1>王小磊</h1>
-                <div class="title">电气工程师</div>
+                <div class="title">电气工程师 · 求职意向</div>
                 <div class="tags">
                     <span class="tag">中共党员</span>
                     <span class="tag">本科</span>
                     <span class="tag">机械设计制造及其自动化</span>
                 </div>
-                <div class="contact-list">
+                <div class="contact-row">
                     <span>📧 2764546146@qq.com</span>
                     <span>📱 19515796740</span>
                     <span>📍 江苏徐州</span>
@@ -111,126 +250,244 @@
             </div>
         </div>
 
+        <!-- Stats -->
+        <div class="stats-row">
+            <div class="stat-card">
+                <div class="stat-icon">🎓</div>
+                <div class="stat-value">3+</div>
+                <div class="stat-label">年工作经验</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon">🏆</div>
+                <div class="stat-value">4</div>
+                <div class="stat-label">获奖荣誉</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon">📊</div>
+                <div class="stat-value">2</div>
+                <div class="stat-label">项目经验</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon">⭐</div>
+                <div class="stat-value">6+</div>
+                <div class="stat-label">专业技能</div>
+            </div>
+        </div>
+
         <!-- Basic Info -->
-        <div class="section">
+        <div class="section" style="animation-delay: 0.3s">
             <div class="section-title">基本信息</div>
-            <div class="info-grid">
-                <div class="info-item">
-                    <div class="info-label">出生年月</div>
-                    <div class="info-value">1999年7月28日</div>
-                </div>
-                <div class="info-item">
-                    <div class="info-label">性别 / 民族</div>
-                    <div class="info-value">男 / 汉族</div>
-                </div>
-                <div class="info-item">
-                    <div class="info-label">籍贯</div>
-                    <div class="info-value">江苏徐州</div>
-                </div>
-                <div class="info-item">
-                    <div class="info-label">学历</div>
-                    <div class="info-value">本科</div>
-                </div>
-                <div class="info-item">
-                    <div class="info-label">专业</div>
-                    <div class="info-value">机械设计制造及其自动化</div>
-                </div>
-                <div class="info-item">
-                    <div class="info-label">政治面貌</div>
-                    <div class="info-value">中共党员</div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Education -->
-        <div class="section">
-            <div class="section-title">教育背景</div>
-            <div class="exp-item">
-                <div class="exp-header">
-                    <div class="exp-title">扬州大学</div>
-                    <div class="exp-date">2019 - 2023</div>
-                </div>
-                <div class="exp-company">本科 · 机械设计制造及其自动化</div>
-            </div>
-        </div>
-
-        <!-- Work -->
-        <div class="section">
-            <div class="section-title">工作经历</div>
-            <div class="exp-item">
-                <div class="exp-header">
-                    <div class="exp-title">徐州徐工电气技术有限公司</div>
-                    <div class="exp-date">2023 - 至今</div>
-                </div>
-                <div class="exp-company">电气工程师</div>
-                <div class="exp-desc">
-                    主要负责产品电气线束的设计、开发与测试工作，确保其全面符合行业标准与性能要求。工作内容覆盖线束开发的全流程，包括需求分析、布线设计、材料选型、测试验证以及生产支持与成本优化。<br><br>
-                    组织产品与技术规划的发起、过程关键节点评审拉通，持续跟踪规划执行情况，定期复盘、迭代。深入参与规划过程，充分理解规划中跨部门、跨职能的拉通和信息交流需求，推动规划制定，策划国内外产品及技术调研，汇总市场、技术、产品等维度的需求，输出支撑调整产品竞争策略和技术平台策略调整的数据文件。<br><br>
-                    在性能测试方面，能够在满足客户要求的基础上，为其提供更多可行的原材料选择，助力客户实现更优配置。在产品优化与降本方面，严格保障质量合规，致力于提升产品的市场价格竞争力，实现降本增效。作为所长助理，承担部分项目管理工作，主要包括协调内外部资源、制定项目计划、跟踪项目节点等。
+            <div class="card">
+                <div class="info-grid">
+                    <div class="info-item">
+                        <div class="info-label">出生年月</div>
+                        <div class="info-value">1999年7月28日</div>
+                    </div>
+                    <div class="info-item">
+                        <div class="info-label">性别 / 民族</div>
+                        <div class="info-value">男 / 汉族</div>
+                    </div>
+                    <div class="info-item">
+                        <div class="info-label">籍贯</div>
+                        <div class="info-value">江苏徐州</div>
+                    </div>
+                    <div class="info-item">
+                        <div class="info-label">学历 / 学位</div>
+                        <div class="info-value">本科 / 学士</div>
+                    </div>
+                    <div class="info-item">
+                        <div class="info-label">专业</div>
+                        <div class="info-value">机械设计制造及其自动化</div>
+                    </div>
+                    <div class="info-item">
+                        <div class="info-label">政治面貌</div>
+                        <div class="info-value">中共党员</div>
+                    </div>
                 </div>
             </div>
         </div>
 
-        <!-- Skills -->
-        <div class="section">
+        <!-- Education & Work -->
+        <div class="section" style="animation-delay: 0.4s">
+            <div class="section-title">教育与工作</div>
+            <div class="card">
+                <div class="timeline">
+                    <div class="timeline-item">
+                        <div class="timeline-date">2019 - 2023</div>
+                        <div class="timeline-title">扬州大学</div>
+                        <div class="timeline-sub">本科 · 机械设计制造及其自动化</div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-date">2023 - 至今</div>
+                        <div class="timeline-title">徐州徐工电气技术有限公司</div>
+                        <div class="timeline-sub">电气工程师</div>
+                        <div class="timeline-desc">
+                            负责电气线束设计开发与测试，涵盖需求分析、布线设计、材料选型及测试验证。熟练使用PLM/PDM构建技术BOM、反查物料、上传图纸；使用U8/SAP下达生产订单、原材料报价。参与产品规划与项目管理，推动跨部门协作与降本增效。
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Skills Chart -->
+        <div class="section" style="animation-delay: 0.5s">
             <div class="section-title">专业技能</div>
-            <div class="skills">
-                <span class="skill">数控程序编写与优化</span>
-                <span class="skill">CAD / SolidWorks</span>
-                <span class="skill">PLC编程</span>
-                <span class="skill">伺服电动机驱动控制</span>
-                <span class="skill">电气线束设计</span>
-                <span class="skill">性能测试与验证</span>
-                <span class="skill">项目协调管理</span>
+            <div class="card">
+                <div class="skills-grid">
+                    <div>
+                        <div class="skill-item">
+                            <div class="skill-header"><span class="skill-name">电气线束设计</span><span class="skill-percent">92%</span></div>
+                            <div class="skill-bar"><div class="skill-fill" data-width="92"></div></div>
+                        </div>
+                        <div class="skill-item">
+                            <div class="skill-header"><span class="skill-name">PLC编程</span><span class="skill-percent">88%</span></div>
+                            <div class="skill-bar"><div class="skill-fill" data-width="88"></div></div>
+                        </div>
+                        <div class="skill-item">
+                            <div class="skill-header"><span class="skill-name">CAD/SolidWorks</span><span class="skill-percent">90%</span></div>
+                            <div class="skill-bar"><div class="skill-fill" data-width="90"></div></div>
+                        </div>
+                        <div class="skill-item">
+                            <div class="skill-header"><span class="skill-name">伺服驱动控制</span><span class="skill-percent">85%</span></div>
+                            <div class="skill-bar"><div class="skill-fill" data-width="85"></div></div>
+                        </div>
+                    </div>
+                    <div class="chart-container">
+                        <canvas id="skillChart"></canvas>
+                    </div>
+                </div>
             </div>
         </div>
 
         <!-- Awards -->
-        <div class="section">
-            <div class="section-title">获奖经历</div>
-            <div class="awards">
-                <div class="award">第七届"AB杯"全国大学生自动化系统应用大赛 <strong style="color:#667eea">特等奖</strong></div>
-                <div class="award">年度成绩优异显著，被评为市级"三好学生"</div>
-                <div class="award">庆祝新中国成立七十周年创意作品大赛 三等奖</div>
-                <div class="award">班级成绩优异，被评为校级三好学生标兵</div>
+        <div class="section" style="animation-delay: 0.6s">
+            <div class="section-title">获奖荣誉</div>
+            <div class="card">
+                <div class="awards-grid">
+                    <div class="award">
+                        <div class="award-icon">🏆</div>
+                        <div class="award-text"><span class="award-highlight">特等奖</span> · AB杯全国大学生自动化系统应用大赛</div>
+                    </div>
+                    <div class="award">
+                        <div class="award-icon">🎖️</div>
+                        <div class="award-text"><span class="award-highlight">市级三好学生</span> · 年度成绩优异显著</div>
+                    </div>
+                    <div class="award">
+                        <div class="award-icon">🎨</div>
+                        <div class="award-text">庆祝新中国成立七十周年创意作品大赛 <span class="award-highlight">三等奖</span></div>
+                    </div>
+                    <div class="award">
+                        <div class="award-icon">📜</div>
+                        <div class="award-text">校级 <span class="award-highlight">三好学生标兵</span> · 班级成绩优异</div>
+                    </div>
+                </div>
             </div>
         </div>
 
         <!-- Projects -->
-        <div class="section">
+        <div class="section" style="animation-delay: 0.7s">
             <div class="section-title">项目经历</div>
-            <div class="project">
-                <div class="project-title">大黄蜂降本增效项目</div>
-                <div class="project-desc">针对韩国市场需求专门设立的一项优化计划。在充分理解客户要求的基础上，对现有产品进行系统性改进，综合考量端子选型与现场装配施工等多方面因素，旨在实现成本降低与效率提升。在确保端子质量合格率及装配适用性的前提下，达成更优的经济效益与操作效能。</div>
-            </div>
-            <div class="project">
-                <div class="project-title">国产化替代项目</div>
-                <div class="project-desc">结合客户对电缆的各项性能指标及实际工况需求，提供专业、合理的选型与应用方案。通过对在用进口电缆开展国产化替代，确保电气性能、机械性能及环境适应性全面达标，同时有效降低采购成本，提升产品性价比与供应链安全性。</div>
+            <div class="card">
+                <div class="project-card">
+                    <div class="project-title">大黄蜂降本增效项目</div>
+                    <div class="project-desc">针对韩国市场需求，对产品进行系统性改进，综合端子选型与装配施工等因素，实现成本降低与效率提升。</div>
+                </div>
+                <div class="project-card">
+                    <div class="project-title">国产化替代项目</div>
+                    <div class="project-desc">结合客户性能指标及工况需求，对进口电缆开展国产化替代，确保电气、机械性能及环境适应性达标，有效降低采购成本。</div>
+                </div>
             </div>
         </div>
 
-        <!-- Self Evaluation -->
-        <div class="section">
+        <!-- Self Eval -->
+        <div class="section" style="animation-delay: 0.8s">
             <div class="section-title">自我评价</div>
-            <div class="eval">
-                本人具备扎实的专业知识基础，熟练掌握数控机床与数控车床的操作，能够独立完成数控程序的编写与优化。熟练运用CAD、SolidWorks等制图软件进行设计与建模，已考取初级工程师证书，并具备相应的理论知识与实践技能。曾参加罗克韦尔自动化技能大赛（特等奖），积累了大量实战经验，能够编写程序实现对伺服电动机驱动系统的精准控制。此外，在实习期间参与过多类自动化设备的现场管理、系统操控与维护工作，具有较强的实际应用能力和工程协调能力。<br><br>
-                作为一名党员，在大学期间，我始终秉持服务为民的根本宗旨，积极团结班级同学，密切联系基层，主动了解和回应班级同学的实际需求，切实履行党员责任与义务。积极投身各类志愿服务与社会实践，包括担任马拉松赛事志愿者、走进养老院为老人打扫卫生、陪伴关怀并帮助解决实际困难。通过这些实践，进一步增强了我的宗旨意识和服务能力，也更坚定了为人民服务的信念。
+            <div class="card">
+                <div class="eval-box">
+                    具备扎实的专业知识和较强的实际应用能力，熟练掌握数控编程、CAD/SolidWorks及PLC伺服控制。曾获罗克韦尔自动化技能大赛特等奖，具备工程协调能力。<br><br>
+                    作为党员，始终秉持服务为民宗旨，积极参与志愿服务与社会实践。
+                </div>
             </div>
         </div>
 
-        <!-- Campus Activities -->
-        <div class="section">
+        <!-- Campus -->
+        <div class="section" style="animation-delay: 0.9s">
             <div class="section-title">校园活动</div>
-            <div class="exp-desc">
-                · 参与组织"不忘初心，砥砺前行"戏剧社专场晚会活动<br>
-                · 大三期间担任校宣传部部长，组织多次海报、公众号的宣传<br>
-                · 任机器人智能协会社长，多次参与机器人智能大赛现场指导
+            <div class="card">
+                <div class="activity-list">
+                    <div class="activity">参与组织"不忘初心，砥砺前行"戏剧社专场晚会活动</div>
+                    <div class="activity">担任校宣传部部长，组织多次海报、公众号宣传</div>
+                    <div class="activity">任机器人智能协会社长，参与机器人智能大赛指导</div>
+                </div>
             </div>
         </div>
 
-        <div class="footer">
-            个人简历 · 更新日期：2026年3月
-        </div>
+        <div class="footer">王小磊 · 个人简历 · 2026</div>
     </div>
+
+    <script>
+        // Animate skill bars on scroll
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    document.querySelectorAll('.skill-fill').forEach(bar => {
+                        bar.style.width = bar.dataset.width + '%';
+                    });
+                    observer.disconnect();
+                }
+            });
+        }, { threshold: 0.3 });
+
+        document.querySelectorAll('.card').forEach(card => observer.observe(card));
+
+        // Skills Radar Chart
+        const ctx = document.getElementById('skillChart').getContext('2d');
+        new Chart(ctx, {
+            type: 'radar',
+            data: {
+                labels: ['电气设计', 'PLC编程', 'CAD/SW', '伺服控制', '项目管理', '测试验证'],
+                datasets: [{
+                    label: '能力分布',
+                    data: [92, 88, 90, 85, 78, 86],
+                    fill: true,
+                    backgroundColor: 'rgba(102, 126, 234, 0.15)',
+                    borderColor: '#667eea',
+                    pointBackgroundColor: '#667eea',
+                    pointBorderColor: '#fff',
+                    pointHoverBackgroundColor: '#fff',
+                    pointHoverBorderColor: '#667eea'
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    r: {
+                        beginAtZero: true,
+                        max: 100,
+                        ticks: { display: false },
+                        grid: { color: '#eee' },
+                        angleLines: { color: '#eee' },
+                        pointLabels: { font: { size: 11 } }
+                    }
+                },
+                plugins: { legend: { display: false } }
+            }
+        });
+
+        // Counter animation
+        document.querySelectorAll('.stat-value').forEach(stat => {
+            const target = parseInt(stat.textContent);
+            let current = 0;
+            const step = target / 30;
+            const timer = setInterval(() => {
+                current += step;
+                if (current >= target) {
+                    stat.textContent = stat.textContent;
+                    clearInterval(timer);
+                }
+            }, 50);
+        });
+    </script>
 </body>
 </html>
