@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>王小磊 - 电气工程师</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #2563eb;
+            --primary-dark: #1d4ed8;
+            --secondary: #64748b;
+            --accent: #3b82f6;
+            --bg: #f8fafc;
+            --card-bg: #ffffff;
+            --text: #1e293b;
+            --text-secondary: #64748b;
+            --border: #e2e8f0;
+            --shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+        }
+
+        body {
+            font-family: 'Noto Sans SC', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 2rem 1rem;
+        }
+
+        /* Header */
+        .header {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            color: white;
+            padding: 2.5rem 2rem;
+            border-radius: 1rem;
+            margin-bottom: 1.5rem;
+            box-shadow: var(--shadow);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 200px;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1));
+            pointer-events: none;
+        }
+
+        .header-content {
+            display: flex;
+            gap: 1.5rem;
+            align-items: center;
+        }
+
+        .avatar {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            background: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--primary);
+            flex-shrink: 0;
+            border: 3px solid white;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+        }
+
+        .header-info h1 {
+            font-size: 1.75rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .header-info .title {
+            font-size: 1.1rem;
+            opacity: 0.9;
+            margin-bottom: 0.75rem;
+        }
+
+        .contact-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            font-size: 0.9rem;
+            opacity: 0.9;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 0.35rem;
+        }
+
+        /* Cards */
+        .card {
+            background: var(--card-bg);
+            border-radius: 1rem;
+            padding: 1.5rem;
+            margin-bottom: 1rem;
+            box-shadow: var(--shadow);
+        }
+
+        .card-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--primary);
+            margin-bottom: 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--border);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .card-title::before {
+            content: '';
+            width: 4px;
+            height: 1.1rem;
+            background: var(--primary);
+            border-radius: 2px;
+        }
+
+        /* Grid Layout */
+        .grid-2 {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+        }
+
+        .info-item {
+            display: flex;
+            flex-direction: column;
+            gap: 0.25rem;
+        }
+
+        .info-label {
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .info-value {
+            font-size: 0.95rem;
+            font-weight: 500;
+        }
+
+        /* Experience */
+        .experience-item {
+            padding: 1rem 0;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .experience-item:last-child {
+            border-bottom: none;
+            padding-bottom: 0;
+        }
+
+        .experience-item:first-child {
+            padding-top: 0;
+        }
+
+        .exp-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 0.5rem;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+
+        .exp-title {
+            font-weight: 600;
+            color: var(--text);
+        }
+
+        .exp-company {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+
+        .exp-date {
+            font-size: 0.85rem;
+            color: var(--accent);
+            background: #eff6ff;
+            padding: 0.2rem 0.6rem;
+            border-radius: 1rem;
+            white-space: nowrap;
+        }
+
+        .exp-desc {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            line-height: 1.7;
+        }
+
+        /* Skills */
+        .skills-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+
+        .skill-tag {
+            background: #eff6ff;
+            color: var(--primary);
+            padding: 0.4rem 0.9rem;
+            border-radius: 2rem;
+            font-size: 0.85rem;
+            font-weight: 500;
+        }
+
+        /* Family */
+        .family-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 0.75rem 0;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .family-item:last-child {
+            border-bottom: none;
+        }
+
+        .family-relation {
+            font-weight: 600;
+            min-width: 50px;
+        }
+
+        .family-info {
+            flex: 1;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem 1.5rem;
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+        }
+
+        /* Statement */
+        .statement {
+            background: #fefce8;
+            border-left: 4px solid #eab308;
+            padding: 1rem;
+            border-radius: 0 0.5rem 0.5rem 0;
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+        }
+
+        /* Footer */
+        .footer {
+            text-align: center;
+            padding: 1.5rem;
+            color: var(--text-secondary);
+            font-size: 0.85rem;
+        }
+
+        /* Print Styles */
+        @media print {
+            body {
+                background: white;
+            }
+            .container {
+                max-width: 100%;
+                padding: 0;
+            }
+            .card {
+                box-shadow: none;
+                border: 1px solid #ddd;
+                margin-bottom: 0.5rem;
+            }
+        }
+
+        /* Mobile */
+        @media (max-width: 600px) {
+            .header {
+                padding: 1.5rem 1rem;
+            }
+            .header-content {
+                flex-direction: column;
+                text-align: center;
+            }
+            .contact-row {
+                justify-content: center;
+            }
+            .exp-header {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <div class="header-content">
+                <div class="avatar">王</div>
+                <div class="header-info">
+                    <h1>王小磊</h1>
+                    <div class="title">电气工程师</div>
+                    <div class="contact-row">
+                        <span class="contact-item">📧 2764546146@qq.com</span>
+                        <span class="contact-item">📱 19515796740</span>
+                        <span class="contact-item">📍 江苏·徐州</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Basic Info -->
+        <div class="card">
+            <div class="card-title">基本信息</div>
+            <div class="grid-2">
+                <div class="info-item">
+                    <span class="info-label">出生年月</span>
+                    <span class="info-value">1999年7月</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">性别 / 民族</span>
+                    <span class="info-value">男 / 汉族</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">身高 / 体重</span>
+                    <span class="info-value">172cm / 82kg</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">血型 / 婚否</span>
+                    <span class="info-value">O型 / 未婚</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">政治面貌</span>
+                    <span class="info-value">党员</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">健康状况</span>
+                    <span class="info-value">良好</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">学历 / 学位</span>
+                    <span class="info-value">本科 / 学士</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">邮编</span>
+                    <span class="info-value">221000</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Education -->
+        <div class="card">
+            <div class="card-title">教育背景</div>
+            <div class="experience-item">
+                <div class="exp-header">
+                    <div>
+                        <div class="exp-title">扬州大学广陵学院</div>
+                        <div class="exp-company">本科 · 机械设计制造及其自动化</div>
+                    </div>
+                    <span class="exp-date">2019.9 - 2023.6</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Experience -->
+        <div class="card">
+            <div class="card-title">工作经验</div>
+            <div class="experience-item">
+                <div class="exp-header">
+                    <div>
+                        <div class="exp-title">徐工电气技术有限公司</div>
+                        <div class="exp-company">技术开发部 · 电气工程师</div>
+                    </div>
+                    <span class="exp-date">2023.2 - 至今</span>
+                </div>
+                <div class="exp-desc">
+                    <strong>月薪/年薪：</strong>9,500 / 130,000<br>
+                    <strong>离职原因：</strong>考虑到自身职业规划发展，希望寻求更有发展前景的长期工作机会
+                </div>
+            </div>
+        </div>
+
+        <!-- Skills -->
+        <div class="card">
+            <div class="card-title">专业技能</div>
+            <div class="skills-grid">
+                <span class="skill-tag">电气设计</span>
+                <span class="skill-tag">PLC编程</span>
+                <span class="skill-tag">电路原理图</span>
+                <span class="skill-tag">电气调试</span>
+                <span class="skill-tag">英语四级</span>
+                <span class="skill-tag">计算机二级</span>
+            </div>
+        </div>
+
+        <!-- Family -->
+        <div class="card">
+            <div class="card-title">家庭信息</div>
+            <div class="family-item">
+                <span class="family-relation">父亲</span>
+                <div class="family-info">
+                    <span>王宜辉</span>
+                    <span>49岁</span>
+                    <span>江西宏安电梯有限公司 · 工人</span>
+                    <span>📞 17205017905</span>
+                </div>
+            </div>
+            <div class="family-item">
+                <span class="family-relation">母亲</span>
+                <div class="family-info">
+                    <span>王素平</span>
+                    <span>47岁</span>
+                    <span>无 · 务农</span>
+                    <span>📞 16590850839</span>
+                </div>
+            </div>
+            <div class="family-item">
+                <span class="family-relation">兄弟</span>
+                <div class="family-info">
+                    <span>王雨杰</span>
+                    <span>18岁</span>
+                    <span>睢宁金陵中专 · 学生</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Statement -->
+        <div class="card">
+            <div class="card-title">本人声明</div>
+            <div class="statement">
+                1、本表为本人亲自填写，表内所填内容均属事实。<br>
+                2、本人自愿接受背景调查，如有虚假，愿受辞退处分，并对不实部分承担相应责任。<br>
+                3、本人自愿接受并遵守公司各项规章制度，如有违反，依公司规章处罚。<br>
+                4、本人确认无刑事记录，如有隐瞒，依公司规章制度处理。<br>
+                5、本人确认无亲属朋友在本公司就职。
+            </div>
+        </div>
+
+        <div class="footer">
+            <p>更新时间：2026年3月17日 · 员工履历表 HRZP-05</p>
+        </div>
+    </div>
+</body>
+</html>
