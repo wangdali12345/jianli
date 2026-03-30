@@ -3,10 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>王小磊 - 电气工程师</title>
+    <title>王小磊 | 电气工程师</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet">
     <style>
         * {
             margin: 0;
@@ -15,41 +15,87 @@
         }
 
         :root {
-            --primary: #2563eb;
-            --primary-dark: #1d4ed8;
-            --secondary: #64748b;
-            --accent: #3b82f6;
-            --bg: #f8fafc;
-            --card-bg: #ffffff;
-            --text: #1e293b;
-            --text-secondary: #64748b;
-            --border: #e2e8f0;
-            --shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+            --primary: #00f5ff;
+            --secondary: #7b2cff;
+            --accent: #ff006e;
+            --bg-dark: #0a0a0f;
+            --bg-card: rgba(15, 15, 25, 0.8);
+            --text: #e0e0e0;
+            --text-dim: #888;
+            --glow-primary: 0 0 20px rgba(0, 245, 255, 0.5);
+            --glow-secondary: 0 0 20px rgba(123, 44, 255, 0.5);
         }
 
         body {
-            font-family: 'Noto Sans SC', -apple-system, BlinkMacSystemFont, sans-serif;
-            background: var(--bg);
+            font-family: 'Noto Sans SC', sans-serif;
+            background: var(--bg-dark);
             color: var(--text);
-            line-height: 1.6;
+            line-height: 1.8;
             min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* Animated Background */
+        .bg-grid {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image:
+                linear-gradient(rgba(0, 245, 255, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 245, 255, 0.03) 1px, transparent 1px);
+            background-size: 50px 50px;
+            animation: gridMove 20s linear infinite;
+            z-index: -2;
+        }
+
+        @keyframes gridMove {
+            0% { transform: perspective(500px) rotateX(60deg) translateY(0); }
+            100% { transform: perspective(500px) rotateX(60deg) translateY(50px); }
+        }
+
+        .particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            overflow: hidden;
+        }
+
+        .particle {
+            position: absolute;
+            width: 2px;
+            height: 2px;
+            background: var(--primary);
+            border-radius: 50%;
+            animation: float 15s infinite;
+            opacity: 0.6;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(100vh) translateX(0); opacity: 0; }
+            10% { opacity: 0.6; }
+            90% { opacity: 0.6; }
+            100% { transform: translateY(-100vh) translateX(100px); opacity: 0; }
         }
 
         .container {
-            max-width: 900px;
+            max-width: 1100px;
             margin: 0 auto;
-            padding: 2rem 1rem;
+            padding: 2rem 1.5rem;
         }
 
         /* Header */
         .header {
-            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
-            color: white;
-            padding: 2.5rem 2rem;
-            border-radius: 1rem;
-            margin-bottom: 1.5rem;
-            box-shadow: var(--shadow);
             position: relative;
+            padding: 3rem 2rem;
+            margin-bottom: 2rem;
+            background: linear-gradient(135deg, rgba(0, 245, 255, 0.1), rgba(123, 44, 255, 0.1));
+            border: 1px solid rgba(0, 245, 255, 0.2);
+            border-radius: 1rem;
             overflow: hidden;
         }
 
@@ -57,272 +103,534 @@
             content: '';
             position: absolute;
             top: 0;
+            left: 0;
             right: 0;
-            width: 200px;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1));
-            pointer-events: none;
+            height: 2px;
+            background: linear-gradient(90deg, var(--primary), var(--secondary), var(--accent));
+            animation: borderGlow 3s linear infinite;
+        }
+
+        @keyframes borderGlow {
+            0%, 100% { opacity: 0.5; }
+            50% { opacity: 1; }
         }
 
         .header-content {
             display: flex;
-            gap: 1.5rem;
+            gap: 2rem;
             align-items: center;
+            position: relative;
+            z-index: 1;
+        }
+
+        .avatar-container {
+            position: relative;
+            flex-shrink: 0;
         }
 
         .avatar {
-            width: 100px;
-            height: 100px;
+            width: 120px;
+            height: 120px;
             border-radius: 50%;
-            background: white;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 2.5rem;
-            font-weight: 700;
-            color: var(--primary);
-            flex-shrink: 0;
-            border: 3px solid white;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+            font-family: 'Orbitron', sans-serif;
+            font-size: 3rem;
+            font-weight: 900;
+            color: var(--bg-dark);
+            position: relative;
+            z-index: 1;
+        }
+
+        .avatar-ring {
+            position: absolute;
+            top: -8px;
+            left: -8px;
+            right: -8px;
+            bottom: -8px;
+            border: 2px solid var(--primary);
+            border-radius: 50%;
+            animation: rotateRing 10s linear infinite;
+        }
+
+        .avatar-ring::before {
+            content: '';
+            position: absolute;
+            top: -4px;
+            left: 50%;
+            width: 8px;
+            height: 8px;
+            background: var(--primary);
+            border-radius: 50%;
+            box-shadow: var(--glow-primary);
+        }
+
+        @keyframes rotateRing {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        .header-info {
+            flex: 1;
         }
 
         .header-info h1 {
-            font-size: 1.75rem;
-            font-weight: 700;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 2.5rem;
+            font-weight: 900;
+            background: linear-gradient(90deg, var(--primary), #fff, var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-shadow: var(--glow-primary);
             margin-bottom: 0.5rem;
+            letter-spacing: 2px;
         }
 
-        .header-info .title {
-            font-size: 1.1rem;
-            opacity: 0.9;
-            margin-bottom: 0.75rem;
+        .title {
+            font-size: 1.2rem;
+            color: var(--primary);
+            text-transform: uppercase;
+            letter-spacing: 4px;
+            margin-bottom: 1rem;
+            text-shadow: var(--glow-primary);
         }
 
-        .contact-row {
+        .contact-grid {
             display: flex;
             flex-wrap: wrap;
-            gap: 1rem;
-            font-size: 0.9rem;
-            opacity: 0.9;
+            gap: 1.5rem;
+            margin-top: 1rem;
         }
 
         .contact-item {
             display: flex;
             align-items: center;
-            gap: 0.35rem;
+            gap: 0.5rem;
+            font-size: 0.9rem;
+            color: var(--text-dim);
+            transition: all 0.3s;
         }
+
+        .contact-item:hover {
+            color: var(--primary);
+            text-shadow: var(--glow-primary);
+        }
+
+        .contact-item span {
+            font-family: 'Orbitron', sans-serif;
+        }
+
+        /* Status Badge */
+        .status-bar {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1.5rem;
+            flex-wrap: wrap;
+        }
+
+        .status-badge {
+            padding: 0.3rem 0.8rem;
+            border-radius: 2rem;
+            font-size: 0.75rem;
+            font-weight: 500;
+            border: 1px solid;
+        }
+
+        .badge党员 { background: rgba(0, 245, 255, 0.1); border-color: var(--primary); color: var(--primary); }
+        .badge本科 { background: rgba(123, 44, 255, 0.1); border-color: var(--secondary); color: var(--secondary); }
+        .badge电气工程师 { background: rgba(255, 0, 110, 0.1); border-color: var(--accent); color: var(--accent); }
 
         /* Cards */
         .card {
-            background: var(--card-bg);
+            background: var(--bg-card);
+            border: 1px solid rgba(0, 245, 255, 0.15);
             border-radius: 1rem;
             padding: 1.5rem;
-            margin-bottom: 1rem;
-            box-shadow: var(--shadow);
+            margin-bottom: 1.5rem;
+            backdrop-filter: blur(10px);
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .card:hover {
+            border-color: rgba(0, 245, 255, 0.4);
+            box-shadow: 0 0 30px rgba(0, 245, 255, 0.1);
+        }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 60px;
+            height: 60px;
+            background: radial-gradient(circle, rgba(0, 245, 255, 0.1) 0%, transparent 70%);
+            pointer-events: none;
         }
 
         .card-title {
-            font-size: 1.1rem;
-            font-weight: 600;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1rem;
+            font-weight: 700;
             color: var(--primary);
-            margin-bottom: 1rem;
-            padding-bottom: 0.5rem;
-            border-bottom: 2px solid var(--border);
+            margin-bottom: 1.25rem;
+            padding-bottom: 0.75rem;
+            border-bottom: 1px solid rgba(0, 245, 255, 0.2);
             display: flex;
             align-items: center;
-            gap: 0.5rem;
+            gap: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
         }
 
         .card-title::before {
-            content: '';
-            width: 4px;
-            height: 1.1rem;
-            background: var(--primary);
-            border-radius: 2px;
+            content: '//';
+            font-family: 'Orbitron', sans-serif;
+            color: var(--secondary);
         }
 
-        /* Grid Layout */
-        .grid-2 {
+        /* Data Grid */
+        .data-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
             gap: 1rem;
         }
 
-        .info-item {
-            display: flex;
-            flex-direction: column;
-            gap: 0.25rem;
+        .data-item {
+            padding: 0.75rem 1rem;
+            background: rgba(0, 245, 255, 0.03);
+            border-left: 2px solid var(--primary);
+            border-radius: 0 0.5rem 0.5rem 0;
+            transition: all 0.3s;
         }
 
-        .info-label {
-            font-size: 0.8rem;
-            color: var(--text-secondary);
+        .data-item:hover {
+            background: rgba(0, 245, 255, 0.08);
+            transform: translateX(5px);
+        }
+
+        .data-label {
+            font-size: 0.7rem;
+            color: var(--text-dim);
             text-transform: uppercase;
-            letter-spacing: 0.05em;
+            letter-spacing: 1px;
+            margin-bottom: 0.25rem;
         }
 
-        .info-value {
+        .data-value {
             font-size: 0.95rem;
             font-weight: 500;
-        }
-
-        /* Experience */
-        .experience-item {
-            padding: 1rem 0;
-            border-bottom: 1px solid var(--border);
-        }
-
-        .experience-item:last-child {
-            border-bottom: none;
-            padding-bottom: 0;
-        }
-
-        .experience-item:first-child {
-            padding-top: 0;
-        }
-
-        .exp-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-start;
-            margin-bottom: 0.5rem;
-            flex-wrap: wrap;
-            gap: 0.5rem;
-        }
-
-        .exp-title {
-            font-weight: 600;
             color: var(--text);
         }
 
-        .exp-company {
-            color: var(--text-secondary);
-            font-size: 0.9rem;
+        /* Timeline */
+        .timeline {
+            position: relative;
+            padding-left: 2rem;
         }
 
-        .exp-date {
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: linear-gradient(180deg, var(--primary), var(--secondary), var(--accent));
+        }
+
+        .timeline-item {
+            position: relative;
+            padding-bottom: 1.5rem;
+        }
+
+        .timeline-item:last-child {
+            padding-bottom: 0;
+        }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -2rem;
+            top: 0.25rem;
+            width: 12px;
+            height: 12px;
+            background: var(--primary);
+            border-radius: 50%;
+            border: 2px solid var(--bg-dark);
+            box-shadow: var(--glow-primary);
+        }
+
+        .timeline-date {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 0.75rem;
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+            letter-spacing: 1px;
+        }
+
+        .timeline-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #fff;
+            margin-bottom: 0.25rem;
+        }
+
+        .timeline-sub {
             font-size: 0.85rem;
-            color: var(--accent);
-            background: #eff6ff;
-            padding: 0.2rem 0.6rem;
-            border-radius: 1rem;
-            white-space: nowrap;
+            color: var(--secondary);
+            margin-bottom: 0.5rem;
         }
 
-        .exp-desc {
-            color: var(--text-secondary);
-            font-size: 0.9rem;
+        .timeline-desc {
+            font-size: 0.85rem;
+            color: var(--text-dim);
             line-height: 1.7;
         }
 
         /* Skills */
-        .skills-grid {
+        .skills-container {
             display: flex;
             flex-wrap: wrap;
-            gap: 0.5rem;
+            gap: 0.75rem;
         }
 
-        .skill-tag {
-            background: #eff6ff;
-            color: var(--primary);
-            padding: 0.4rem 0.9rem;
+        .skill-item {
+            padding: 0.5rem 1.25rem;
+            background: linear-gradient(135deg, rgba(0, 245, 255, 0.1), rgba(123, 44, 255, 0.1));
+            border: 1px solid rgba(0, 245, 255, 0.3);
             border-radius: 2rem;
             font-size: 0.85rem;
-            font-weight: 500;
+            color: var(--text);
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s;
         }
 
-        /* Family */
-        .family-item {
+        .skill-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(0, 245, 255, 0.2), transparent);
+            transition: all 0.5s;
+        }
+
+        .skill-item:hover::before {
+            left: 100%;
+        }
+
+        .skill-item:hover {
+            border-color: var(--primary);
+            box-shadow: var(--glow-primary);
+            transform: translateY(-2px);
+        }
+
+        /* Documents */
+        .docs-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+            gap: 0.75rem;
+        }
+
+        .doc-item {
             display: flex;
             align-items: center;
-            gap: 1rem;
-            padding: 0.75rem 0;
-            border-bottom: 1px solid var(--border);
+            gap: 0.5rem;
+            padding: 0.6rem 1rem;
+            background: rgba(123, 44, 255, 0.05);
+            border: 1px solid rgba(123, 44, 255, 0.2);
+            border-radius: 0.5rem;
+            font-size: 0.8rem;
         }
 
-        .family-item:last-child {
-            border-bottom: none;
+        .doc-item.checked {
+            background: rgba(0, 245, 255, 0.05);
+            border-color: rgba(0, 245, 255, 0.3);
         }
 
-        .family-relation {
-            font-weight: 600;
-            min-width: 50px;
+        .doc-check {
+            color: var(--primary);
+            font-weight: bold;
         }
 
-        .family-info {
-            flex: 1;
-            display: flex;
-            flex-wrap: wrap;
-            gap: 0.5rem 1.5rem;
-            font-size: 0.9rem;
-            color: var(--text-secondary);
+        /* Family Table */
+        .family-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .family-table th,
+        .family-table td {
+            padding: 0.75rem;
+            text-align: left;
+            border-bottom: 1px solid rgba(0, 245, 255, 0.1);
+            font-size: 0.85rem;
+        }
+
+        .family-table th {
+            font-size: 0.7rem;
+            color: var(--text-dim);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            background: rgba(0, 245, 255, 0.03);
+        }
+
+        .family-table tr:hover td {
+            background: rgba(0, 245, 255, 0.03);
         }
 
         /* Statement */
-        .statement {
-            background: #fefce8;
-            border-left: 4px solid #eab308;
+        .statement-box {
+            background: linear-gradient(135deg, rgba(255, 0, 110, 0.05), rgba(123, 44, 255, 0.05));
+            border: 1px solid rgba(255, 0, 110, 0.2);
+            border-radius: 0.5rem;
+            padding: 1.25rem;
+        }
+
+        .statement-item {
+            display: flex;
+            gap: 0.75rem;
+            margin-bottom: 0.6rem;
+            font-size: 0.85rem;
+            color: var(--text-dim);
+        }
+
+        .statement-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .statement-num {
+            color: var(--accent);
+            font-family: 'Orbitron', sans-serif;
+            font-size: 0.7rem;
+            flex-shrink: 0;
+        }
+
+        /* Info Row */
+        .info-row {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .info-block {
+            flex: 1;
+            min-width: 200px;
+        }
+
+        /* Salary Display */
+        .salary-display {
+            display: flex;
+            gap: 1.5rem;
+            flex-wrap: wrap;
+            margin-top: 1rem;
             padding: 1rem;
-            border-radius: 0 0.5rem 0.5rem 0;
-            font-size: 0.9rem;
-            color: var(--text-secondary);
+            background: rgba(0, 245, 255, 0.03);
+            border-radius: 0.5rem;
+        }
+
+        .salary-item {
+            text-align: center;
+        }
+
+        .salary-label {
+            font-size: 0.7rem;
+            color: var(--text-dim);
+            text-transform: uppercase;
+            margin-bottom: 0.25rem;
+        }
+
+        .salary-value {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.5rem;
+            color: var(--primary);
+            text-shadow: var(--glow-primary);
+        }
+
+        .salary-unit {
+            font-size: 0.7rem;
+            color: var(--text-dim);
         }
 
         /* Footer */
         .footer {
             text-align: center;
-            padding: 1.5rem;
-            color: var(--text-secondary);
-            font-size: 0.85rem;
+            padding: 2rem;
+            margin-top: 1rem;
+            border-top: 1px solid rgba(0, 245, 255, 0.1);
         }
 
-        /* Print Styles */
-        @media print {
-            body {
-                background: white;
-            }
-            .container {
-                max-width: 100%;
-                padding: 0;
-            }
-            .card {
-                box-shadow: none;
-                border: 1px solid #ddd;
-                margin-bottom: 0.5rem;
-            }
+        .footer-text {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 0.75rem;
+            color: var(--text-dim);
+            letter-spacing: 2px;
+        }
+
+        .footer-id {
+            color: var(--secondary);
         }
 
         /* Mobile */
-        @media (max-width: 600px) {
-            .header {
-                padding: 1.5rem 1rem;
-            }
+        @media (max-width: 700px) {
             .header-content {
                 flex-direction: column;
                 text-align: center;
             }
-            .contact-row {
+            .header-info h1 {
+                font-size: 1.8rem;
+            }
+            .contact-grid {
                 justify-content: center;
             }
-            .exp-header {
-                flex-direction: column;
+            .status-bar {
+                justify-content: center;
             }
+            .data-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        /* Print */
+        @media print {
+            body { background: white; color: black; }
+            .card { border: 1px solid #ccc; background: white; }
+            .bg-grid, .particles { display: none; }
         }
     </style>
 </head>
 <body>
+    <div class="bg-grid"></div>
+    <div class="particles" id="particles"></div>
+
     <div class="container">
         <!-- Header -->
         <div class="header">
             <div class="header-content">
-                <div class="avatar">王</div>
+                <div class="avatar-container">
+                    <div class="avatar">王</div>
+                    <div class="avatar-ring"></div>
+                </div>
                 <div class="header-info">
                     <h1>王小磊</h1>
                     <div class="title">电气工程师</div>
-                    <div class="contact-row">
-                        <span class="contact-item">📧 2764546146@qq.com</span>
-                        <span class="contact-item">📱 19515796740</span>
-                        <span class="contact-item">📍 江苏·徐州</span>
+                    <div class="status-bar">
+                        <span class="status-badge badge党员">党员</span>
+                        <span class="status-badge badge本科">本科</span>
+                        <span class="status-badge badge电气工程师">电气工程师</span>
+                    </div>
+                    <div class="contact-grid">
+                        <div class="contact-item">📧 <span>2764546146@qq.com</span></div>
+                        <div class="contact-item">📱 <span>19515796740</span></div>
+                        <div class="contact-item">📍 <span>江苏省徐州市鼓楼区</span></div>
+                        <div class="contact-item">🏥 <span>健康良好</span></div>
                     </div>
                 </div>
             </div>
@@ -331,70 +639,85 @@
         <!-- Basic Info -->
         <div class="card">
             <div class="card-title">基本信息</div>
-            <div class="grid-2">
-                <div class="info-item">
-                    <span class="info-label">出生年月</span>
-                    <span class="info-value">1999年7月</span>
+            <div class="data-grid">
+                <div class="data-item">
+                    <div class="data-label">员工编号</div>
+                    <div class="data-value">HRZP-05</div>
                 </div>
-                <div class="info-item">
-                    <span class="info-label">性别 / 民族</span>
-                    <span class="info-value">男 / 汉族</span>
+                <div class="data-item">
+                    <div class="data-label">出生年月</div>
+                    <div class="data-value">1999年7月28日</div>
                 </div>
-                <div class="info-item">
-                    <span class="info-label">身高 / 体重</span>
-                    <span class="info-value">172cm / 82kg</span>
+                <div class="data-item">
+                    <div class="data-label">性别 / 民族</div>
+                    <div class="data-value">男 / 汉族</div>
                 </div>
-                <div class="info-item">
-                    <span class="info-label">血型 / 婚否</span>
-                    <span class="info-value">O型 / 未婚</span>
+                <div class="data-item">
+                    <div class="data-label">籍贯</div>
+                    <div class="data-value">江苏·徐州</div>
                 </div>
-                <div class="info-item">
-                    <span class="info-label">政治面貌</span>
-                    <span class="info-value">党员</span>
+                <div class="data-item">
+                    <div class="data-label">身高 / 体重</div>
+                    <div class="data-value">172cm / 82kg</div>
                 </div>
-                <div class="info-item">
-                    <span class="info-label">健康状况</span>
-                    <span class="info-value">良好</span>
+                <div class="data-item">
+                    <div class="data-label">血型 / 婚否</div>
+                    <div class="data-value">O型 / 未婚</div>
                 </div>
-                <div class="info-item">
-                    <span class="info-label">学历 / 学位</span>
-                    <span class="info-value">本科 / 学士</span>
+                <div class="data-item">
+                    <div class="data-label">政治面貌</div>
+                    <div class="data-value">党员</div>
                 </div>
-                <div class="info-item">
-                    <span class="info-label">邮编</span>
-                    <span class="info-value">221000</span>
+                <div class="data-item">
+                    <div class="data-label">健康状况</div>
+                    <div class="data-value">良好</div>
+                </div>
+                <div class="data-item">
+                    <div class="data-label">学历 / 学位</div>
+                    <div class="data-value">本科 / 学士</div>
+                </div>
+                <div class="data-item">
+                    <div class="data-label">职称</div>
+                    <div class="data-value">电气工程师</div>
+                </div>
+                <div class="data-item">
+                    <div class="data-label">身份证号</div>
+                    <div class="data-value">320324199907286514</div>
+                </div>
+                <div class="data-item">
+                    <div class="data-label">邮编</div>
+                    <div class="data-value">221000</div>
                 </div>
             </div>
         </div>
 
-        <!-- Education -->
+        <!-- Contact & Emergency -->
         <div class="card">
-            <div class="card-title">教育背景</div>
-            <div class="experience-item">
-                <div class="exp-header">
-                    <div>
-                        <div class="exp-title">扬州大学广陵学院</div>
-                        <div class="exp-company">本科 · 机械设计制造及其自动化</div>
+            <div class="card-title">联系方式</div>
+            <div class="info-row">
+                <div class="info-block">
+                    <div class="data-item">
+                        <div class="data-label">通讯地址</div>
+                        <div class="data-value">江苏省徐州市鼓楼区</div>
                     </div>
-                    <span class="exp-date">2019.9 - 2023.6</span>
                 </div>
-            </div>
-        </div>
-
-        <!-- Experience -->
-        <div class="card">
-            <div class="card-title">工作经验</div>
-            <div class="experience-item">
-                <div class="exp-header">
-                    <div>
-                        <div class="exp-title">徐工电气技术有限公司</div>
-                        <div class="exp-company">技术开发部 · 电气工程师</div>
+                <div class="info-block">
+                    <div class="data-item">
+                        <div class="data-label">联系电话</div>
+                        <div class="data-value">19515796740</div>
                     </div>
-                    <span class="exp-date">2023.2 - 至今</span>
                 </div>
-                <div class="exp-desc">
-                    <strong>月薪/年薪：</strong>9,500 / 130,000<br>
-                    <strong>离职原因：</strong>考虑到自身职业规划发展，希望寻求更有发展前景的长期工作机会
+                <div class="info-block">
+                    <div class="data-item">
+                        <div class="data-label">电子邮箱</div>
+                        <div class="data-value">2764546146@qq.com</div>
+                    </div>
+                </div>
+                <div class="info-block">
+                    <div class="data-item">
+                        <div class="data-label">紧急联系人</div>
+                        <div class="data-value">王宜辉 (父) - 17205017905</div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -402,62 +725,189 @@
         <!-- Skills -->
         <div class="card">
             <div class="card-title">专业技能</div>
-            <div class="skills-grid">
-                <span class="skill-tag">电气设计</span>
-                <span class="skill-tag">PLC编程</span>
-                <span class="skill-tag">电路原理图</span>
-                <span class="skill-tag">电气调试</span>
-                <span class="skill-tag">英语四级</span>
-                <span class="skill-tag">计算机二级</span>
+            <div class="skills-container">
+                <span class="skill-item">英语四级</span>
+                <span class="skill-item">计算机二级</span>
+                <span class="skill-item">电气设计</span>
+                <span class="skill-item">PLC编程</span>
+                <span class="skill-item">电路原理图</span>
+                <span class="skill-item">电气调试</span>
+            </div>
+        </div>
+
+        <!-- Education -->
+        <div class="card">
+            <div class="card-title">教育背景</div>
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="timeline-date">2019.09 - 2023.06</div>
+                    <div class="timeline-title">扬州大学广陵学院</div>
+                    <div class="timeline-sub">本科 · 机械设计制造及其自动化</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Documents Provided -->
+        <div class="card">
+            <div class="card-title">证件资料</div>
+            <div class="docs-grid">
+                <div class="doc-item checked"><span class="doc-check">✓</span> 照片</div>
+                <div class="doc-item checked"><span class="doc-check">✓</span> 身份证</div>
+                <div class="doc-item checked"><span class="doc-check">✓</span> 毕业证</div>
+                <div class="doc-item checked"><span class="doc-check">✓</span> 学位证</div>
+                <div class="doc-item checked"><span class="doc-check">✓</span> 英语等级证</div>
+                <div class="doc-item checked"><span class="doc-check">✓</span> 职称证</div>
+                <div class="doc-item checked"><span class="doc-check">✓</span> 离职证明</div>
+            </div>
+        </div>
+
+        <!-- Work Experience -->
+        <div class="card">
+            <div class="card-title">工作经验</div>
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="timeline-date">2023.02.13 - 至今</div>
+                    <div class="timeline-title">徐工电气技术有限公司</div>
+                    <div class="timeline-sub">技术开发部 · 电气工程师</div>
+                    <div class="timeline-desc">
+                        <strong>月薪/年薪：</strong>9,500 / 130,000<br>
+                        <strong>离职原因：</strong>考虑到自身职业规划发展，希望寻求更有发展前景的长期工作机会
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Application Info -->
+        <div class="card">
+            <div class="card-title">应聘信息</div>
+            <div class="data-grid">
+                <div class="data-item">
+                    <div class="data-label">应聘途径</div>
+                    <div class="data-value">智联招聘</div>
+                </div>
+                <div class="data-item">
+                    <div class="data-label">可入职日期</div>
+                    <div class="data-value">面议</div>
+                </div>
+            </div>
+            <div class="salary-display">
+                <div class="salary-item">
+                    <div class="salary-label">期望月薪</div>
+                    <div class="salary-value">面议</div>
+                </div>
+                <div class="salary-item">
+                    <div class="salary-label">期望年薪</div>
+                    <div class="salary-value">面议</div>
+                </div>
             </div>
         </div>
 
         <!-- Family -->
         <div class="card">
             <div class="card-title">家庭信息</div>
-            <div class="family-item">
-                <span class="family-relation">父亲</span>
-                <div class="family-info">
-                    <span>王宜辉</span>
-                    <span>49岁</span>
-                    <span>江西宏安电梯有限公司 · 工人</span>
-                    <span>📞 17205017905</span>
-                </div>
-            </div>
-            <div class="family-item">
-                <span class="family-relation">母亲</span>
-                <div class="family-info">
-                    <span>王素平</span>
-                    <span>47岁</span>
-                    <span>无 · 务农</span>
-                    <span>📞 16590850839</span>
-                </div>
-            </div>
-            <div class="family-item">
-                <span class="family-relation">兄弟</span>
-                <div class="family-info">
-                    <span>王雨杰</span>
-                    <span>18岁</span>
-                    <span>睢宁金陵中专 · 学生</span>
-                </div>
-            </div>
+            <table class="family-table">
+                <thead>
+                    <tr>
+                        <th>关系</th>
+                        <th>姓名</th>
+                        <th>年龄</th>
+                        <th>工作单位</th>
+                        <th>职务</th>
+                        <th>联系电话</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>父亲</td>
+                        <td>王宜辉</td>
+                        <td>49岁</td>
+                        <td>江西宏安电梯有限公司</td>
+                        <td>工人</td>
+                        <td>17205017905</td>
+                    </tr>
+                    <tr>
+                        <td>母亲</td>
+                        <td>王素平</td>
+                        <td>47岁</td>
+                        <td>无</td>
+                        <td>务农</td>
+                        <td>16590850839</td>
+                    </tr>
+                    <tr>
+                        <td>兄弟</td>
+                        <td>王雨杰</td>
+                        <td>18岁</td>
+                        <td>睢宁金陵中专</td>
+                        <td>学生</td>
+                        <td>-</td>
+                    </tr>
+                </tbody>
+            </table>
         </div>
 
         <!-- Statement -->
         <div class="card">
             <div class="card-title">本人声明</div>
-            <div class="statement">
-                1、本表为本人亲自填写，表内所填内容均属事实。<br>
-                2、本人自愿接受背景调查，如有虚假，愿受辞退处分，并对不实部分承担相应责任。<br>
-                3、本人自愿接受并遵守公司各项规章制度，如有违反，依公司规章处罚。<br>
-                4、本人确认无刑事记录，如有隐瞒，依公司规章制度处理。<br>
-                5、本人确认无亲属朋友在本公司就职。
+            <div class="statement-box">
+                <div class="statement-item">
+                    <span class="statement-num">01.</span>
+                    <span>本表为本人亲自填写，表内所填内容均属事实</span>
+                </div>
+                <div class="statement-item">
+                    <span class="statement-num">02.</span>
+                    <span>本人自愿接受背景调查，如有虚假，愿受辞退处分，并对不实部分承担相应责任</span>
+                </div>
+                <div class="statement-item">
+                    <span class="statement-num">03.</span>
+                    <span>本人自愿接受并遵守公司各项规章制度，如有违反，依公司规章处罚</span>
+                </div>
+                <div class="statement-item">
+                    <span class="statement-num">04.</span>
+                    <span>本人确认无刑事记录，如有隐瞒，依公司规章制度处理</span>
+                </div>
+                <div class="statement-item">
+                    <span class="statement-num">05.</span>
+                    <span>本人确认无亲属朋友在本公司就职</span>
+                </div>
             </div>
         </div>
 
+        <!-- Footer -->
         <div class="footer">
-            <p>更新时间：2026年3月17日 · 员工履历表 HRZP-05</p>
+            <div class="footer-text">
+                员工履历表 <span class="footer-id">HRZP-05</span> | 更新日期：2026年3月17日
+            </div>
         </div>
     </div>
+
+    <script>
+        // Create floating particles
+        const particlesContainer = document.getElementById('particles');
+        const particleCount = 30;
+
+        for (let i = 0; i < particleCount; i++) {
+            const particle = document.createElement('div');
+            particle.className = 'particle';
+            particle.style.left = Math.random() * 100 + '%';
+            particle.style.animationDelay = Math.random() * 15 + 's';
+            particle.style.animationDuration = (15 + Math.random() * 10) + 's';
+
+            // Random color
+            const colors = ['#00f5ff', '#7b2cff', '#ff006e'];
+            particle.style.background = colors[Math.floor(Math.random() * colors.length)];
+
+            particlesContainer.appendChild(particle);
+        }
+
+        // Add hover effect to cards
+        document.querySelectorAll('.card').forEach(card => {
+            card.addEventListener('mouseenter', () => {
+                card.style.transform = 'translateY(-2px)';
+            });
+            card.addEventListener('mouseleave', () => {
+                card.style.transform = 'translateY(0)';
+            });
+        });
+    </script>
 </body>
 </html>
