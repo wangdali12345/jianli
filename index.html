@@ -8,12 +8,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
+        * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
             font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
             background: #fafafa;
@@ -21,12 +16,7 @@
             line-height: 1.6;
             -webkit-font-smoothing: antialiased;
         }
-
-        .container {
-            max-width: 800px;
-            margin: 0 auto;
-            padding: 60px 24px;
-        }
+        .container { max-width: 800px; margin: 0 auto; padding: 60px 24px; }
 
         /* Header */
         .header {
@@ -37,261 +27,67 @@
             padding-bottom: 40px;
             border-bottom: 1px solid #e5e5e5;
         }
-
         .avatar {
-            width: 88px;
-            height: 88px;
-            border-radius: 50%;
+            width: 88px; height: 88px; border-radius: 50%;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 32px;
-            font-weight: 600;
-            color: white;
-            flex-shrink: 0;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 32px; font-weight: 600; color: white; flex-shrink: 0;
         }
-
-        .header-info {
-            flex: 1;
-        }
-
-        .header-info h1 {
-            font-size: 36px;
-            font-weight: 700;
-            letter-spacing: -0.5px;
-            margin-bottom: 4px;
-        }
-
-        .title {
-            font-size: 18px;
-            color: #666;
-            font-weight: 400;
-            margin-bottom: 16px;
-        }
-
-        .tags {
-            display: flex;
-            gap: 8px;
-            flex-wrap: wrap;
-        }
-
-        .tag {
-            padding: 4px 12px;
-            background: #f0f0f0;
-            border-radius: 100px;
-            font-size: 13px;
-            font-weight: 500;
-            color: #333;
-        }
-
-        .contact-list {
-            display: flex;
-            gap: 24px;
-            margin-top: 16px;
-            flex-wrap: wrap;
-        }
-
-        .contact-item {
-            font-size: 14px;
-            color: #666;
-        }
+        .header-info { flex: 1; }
+        .header-info h1 { font-size: 36px; font-weight: 700; letter-spacing: -0.5px; margin-bottom: 4px; }
+        .title { font-size: 18px; color: #666; font-weight: 400; margin-bottom: 12px; }
+        .tags { display: flex; gap: 8px; flex-wrap: wrap; }
+        .tag { padding: 4px 12px; background: #f0f0f0; border-radius: 100px; font-size: 13px; font-weight: 500; color: #333; }
+        .contact-list { display: flex; gap: 24px; margin-top: 16px; flex-wrap: wrap; font-size: 14px; color: #666; }
 
         /* Section */
-        .section {
-            margin-bottom: 40px;
-        }
-
-        .section-title {
-            font-size: 12px;
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            color: #999;
-            margin-bottom: 16px;
-        }
+        .section { margin-bottom: 40px; }
+        .section-title { font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; color: #999; margin-bottom: 16px; }
 
         /* Info Grid */
-        .info-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 16px;
-        }
-
-        .info-item {
-            padding: 16px;
-            background: white;
-            border-radius: 8px;
-            border: 1px solid #eee;
-        }
-
-        .info-label {
-            font-size: 11px;
-            color: #999;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            margin-bottom: 4px;
-        }
-
-        .info-value {
-            font-size: 14px;
-            font-weight: 500;
-            color: #1a1a1a;
-        }
+        .info-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+        .info-item { padding: 16px; background: white; border-radius: 8px; border: 1px solid #eee; }
+        .info-label { font-size: 11px; color: #999; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 4px; }
+        .info-value { font-size: 14px; font-weight: 500; color: #1a1a1a; }
 
         /* Experience */
-        .exp-item {
-            padding: 20px 0;
-            border-bottom: 1px solid #f0f0f0;
-        }
-
-        .exp-item:last-child {
-            border-bottom: none;
-            padding-bottom: 0;
-        }
-
-        .exp-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: baseline;
-            margin-bottom: 8px;
-        }
-
-        .exp-title {
-            font-size: 16px;
-            font-weight: 600;
-        }
-
-        .exp-date {
-            font-size: 13px;
-            color: #999;
-        }
-
-        .exp-company {
-            font-size: 14px;
-            color: #666;
-            margin-bottom: 8px;
-        }
-
-        .exp-desc {
-            font-size: 14px;
-            color: #555;
-            line-height: 1.7;
-        }
+        .exp-item { padding: 20px 0; border-bottom: 1px solid #f0f0f0; }
+        .exp-item:last-child { border-bottom: none; padding-bottom: 0; }
+        .exp-header { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 8px; }
+        .exp-title { font-size: 16px; font-weight: 600; }
+        .exp-date { font-size: 13px; color: #999; }
+        .exp-company { font-size: 14px; color: #666; margin-bottom: 8px; }
+        .exp-desc { font-size: 14px; color: #555; line-height: 1.8; }
 
         /* Skills */
-        .skills {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 8px;
-        }
+        .skills { display: flex; flex-wrap: wrap; gap: 8px; }
+        .skill { padding: 8px 16px; background: white; border: 1px solid #e0e0e0; border-radius: 6px; font-size: 13px; font-weight: 500; }
 
-        .skill {
-            padding: 8px 16px;
-            background: white;
-            border: 1px solid #e0e0e0;
-            border-radius: 6px;
-            font-size: 13px;
-            font-weight: 500;
-        }
+        /* Awards */
+        .awards { display: flex; flex-direction: column; gap: 10px; }
+        .award { display: flex; align-items: flex-start; gap: 10px; font-size: 14px; color: #333; }
+        .award::before { content: '🏆'; flex-shrink: 0; }
 
-        /* Docs */
-        .docs {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 8px;
-        }
+        /* Projects */
+        .project { padding: 16px 0; border-bottom: 1px solid #f0f0f0; }
+        .project:last-child { border-bottom: none; padding-bottom: 0; }
+        .project-title { font-size: 15px; font-weight: 600; margin-bottom: 6px; }
+        .project-desc { font-size: 13px; color: #666; line-height: 1.7; }
 
-        .doc {
-            padding: 6px 12px;
-            background: #f5f5f5;
-            border-radius: 4px;
-            font-size: 12px;
-            color: #555;
-        }
-
-        .doc::before {
-            content: '✓ ';
-            color: #22c55e;
-            font-weight: 600;
-        }
-
-        /* Family Table */
-        .family-table {
-            width: 100%;
-            border-collapse: collapse;
-            font-size: 14px;
-        }
-
-        .family-table th {
-            text-align: left;
-            padding: 12px 8px;
-            font-size: 11px;
-            color: #999;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            border-bottom: 1px solid #eee;
-            font-weight: 500;
-        }
-
-        .family-table td {
-            padding: 12px 8px;
-            border-bottom: 1px solid #f5f5f5;
-            color: #333;
-        }
-
-        .family-table tr:last-child td {
-            border-bottom: none;
-        }
-
-        /* Statement */
-        .statement {
-            font-size: 13px;
-            color: #666;
-            line-height: 2;
-            padding: 20px;
-            background: #f9f9f9;
-            border-radius: 8px;
-            border-left: 3px solid #667eea;
-        }
+        /* Self Eval */
+        .eval { padding: 20px; background: #f9f9f9; border-radius: 8px; border-left: 3px solid #667eea; font-size: 14px; color: #555; line-height: 1.9; }
 
         /* Footer */
-        .footer {
-            margin-top: 60px;
-            padding-top: 24px;
-            border-top: 1px solid #eee;
-            text-align: center;
-            font-size: 12px;
-            color: #999;
-        }
+        .footer { margin-top: 60px; padding-top: 24px; border-top: 1px solid #eee; text-align: center; font-size: 12px; color: #999; }
 
-        /* Mobile */
         @media (max-width: 640px) {
-            .container {
-                padding: 40px 20px;
-            }
-            .header {
-                flex-direction: column;
-                align-items: center;
-                text-align: center;
-            }
-            .info-grid {
-                grid-template-columns: repeat(2, 1fr);
-            }
-            .contact-list {
-                justify-content: center;
-            }
-            .exp-header {
-                flex-direction: column;
-            }
+            .container { padding: 40px 20px; }
+            .header { flex-direction: column; align-items: center; text-align: center; }
+            .info-grid { grid-template-columns: repeat(2, 1fr); }
+            .contact-list { justify-content: center; }
+            .exp-header { flex-direction: column; }
         }
-
-        /* Print */
-        @media print {
-            body { background: white; }
-            .container { padding: 0; max-width: 100%; }
-            .info-item, .section { break-inside: avoid; }
-        }
+        @media print { body { background: white; } .container { padding: 0; max-width: 100%; } }
     </style>
 </head>
 <body>
@@ -303,14 +99,14 @@
                 <h1>王小磊</h1>
                 <div class="title">电气工程师</div>
                 <div class="tags">
-                    <span class="tag">党员</span>
+                    <span class="tag">中共党员</span>
                     <span class="tag">本科</span>
-                    <span class="tag">电气工程师</span>
+                    <span class="tag">机械设计制造及其自动化</span>
                 </div>
                 <div class="contact-list">
-                    <span class="contact-item">2764546146@qq.com</span>
-                    <span class="contact-item">19515796740</span>
-                    <span class="contact-item">江苏·徐州</span>
+                    <span>📧 2764546146@qq.com</span>
+                    <span>📱 19515796740</span>
+                    <span>📍 江苏徐州</span>
                 </div>
             </div>
         </div>
@@ -321,7 +117,7 @@
             <div class="info-grid">
                 <div class="info-item">
                     <div class="info-label">出生年月</div>
-                    <div class="info-value">1999年7月</div>
+                    <div class="info-value">1999年7月28日</div>
                 </div>
                 <div class="info-item">
                     <div class="info-label">性别 / 民族</div>
@@ -329,31 +125,19 @@
                 </div>
                 <div class="info-item">
                     <div class="info-label">籍贯</div>
-                    <div class="info-value">江苏·徐州</div>
+                    <div class="info-value">江苏徐州</div>
                 </div>
                 <div class="info-item">
-                    <div class="info-label">身高 / 体重</div>
-                    <div class="info-value">172cm / 82kg</div>
+                    <div class="info-label">学历</div>
+                    <div class="info-value">本科</div>
                 </div>
                 <div class="info-item">
-                    <div class="info-label">血型 / 婚否</div>
-                    <div class="info-value">O型 / 未婚</div>
+                    <div class="info-label">专业</div>
+                    <div class="info-value">机械设计制造及其自动化</div>
                 </div>
                 <div class="info-item">
-                    <div class="info-label">健康状况</div>
-                    <div class="info-value">良好</div>
-                </div>
-                <div class="info-item">
-                    <div class="info-label">学历 / 学位</div>
-                    <div class="info-value">本科 / 学士</div>
-                </div>
-                <div class="info-item">
-                    <div class="info-label">职称</div>
-                    <div class="info-value">电气工程师</div>
-                </div>
-                <div class="info-item">
-                    <div class="info-label">身份证号</div>
-                    <div class="info-value">320324199907286514</div>
+                    <div class="info-label">政治面貌</div>
+                    <div class="info-value">中共党员</div>
                 </div>
             </div>
         </div>
@@ -363,10 +147,27 @@
             <div class="section-title">教育背景</div>
             <div class="exp-item">
                 <div class="exp-header">
-                    <div class="exp-title">扬州大学广陵学院</div>
-                    <div class="exp-date">2019.9 - 2023.6</div>
+                    <div class="exp-title">扬州大学</div>
+                    <div class="exp-date">2019 - 2023</div>
                 </div>
                 <div class="exp-company">本科 · 机械设计制造及其自动化</div>
+            </div>
+        </div>
+
+        <!-- Work -->
+        <div class="section">
+            <div class="section-title">工作经历</div>
+            <div class="exp-item">
+                <div class="exp-header">
+                    <div class="exp-title">徐州徐工电气技术有限公司</div>
+                    <div class="exp-date">2023 - 至今</div>
+                </div>
+                <div class="exp-company">电气工程师</div>
+                <div class="exp-desc">
+                    主要负责产品电气线束的设计、开发与测试工作，确保其全面符合行业标准与性能要求。工作内容覆盖线束开发的全流程，包括需求分析、布线设计、材料选型、测试验证以及生产支持与成本优化。<br><br>
+                    组织产品与技术规划的发起、过程关键节点评审拉通，持续跟踪规划执行情况，定期复盘、迭代。深入参与规划过程，充分理解规划中跨部门、跨职能的拉通和信息交流需求，推动规划制定，策划国内外产品及技术调研，汇总市场、技术、产品等维度的需求，输出支撑调整产品竞争策略和技术平台策略调整的数据文件。<br><br>
+                    在性能测试方面，能够在满足客户要求的基础上，为其提供更多可行的原材料选择，助力客户实现更优配置。在产品优化与降本方面，严格保障质量合规，致力于提升产品的市场价格竞争力，实现降本增效。作为所长助理，承担部分项目管理工作，主要包括协调内外部资源、制定项目计划、跟踪项目节点等。
+                </div>
             </div>
         </div>
 
@@ -374,102 +175,61 @@
         <div class="section">
             <div class="section-title">专业技能</div>
             <div class="skills">
-                <span class="skill">英语四级</span>
-                <span class="skill">计算机二级</span>
-                <span class="skill">电气设计</span>
+                <span class="skill">数控程序编写与优化</span>
+                <span class="skill">CAD / SolidWorks</span>
                 <span class="skill">PLC编程</span>
-                <span class="skill">电路原理图</span>
-                <span class="skill">电气调试</span>
+                <span class="skill">伺服电动机驱动控制</span>
+                <span class="skill">电气线束设计</span>
+                <span class="skill">性能测试与验证</span>
+                <span class="skill">项目协调管理</span>
             </div>
         </div>
 
-        <!-- Documents -->
+        <!-- Awards -->
         <div class="section">
-            <div class="section-title">证件资料</div>
-            <div class="docs">
-                <span class="doc">照片</span>
-                <span class="doc">身份证</span>
-                <span class="doc">毕业证</span>
-                <span class="doc">学位证</span>
-                <span class="doc">英语等级证</span>
-                <span class="doc">职称证</span>
-                <span class="doc">离职证明</span>
+            <div class="section-title">获奖经历</div>
+            <div class="awards">
+                <div class="award">第七届"AB杯"全国大学生自动化系统应用大赛 <strong style="color:#667eea">特等奖</strong></div>
+                <div class="award">年度成绩优异显著，被评为市级"三好学生"</div>
+                <div class="award">庆祝新中国成立七十周年创意作品大赛 三等奖</div>
+                <div class="award">班级成绩优异，被评为校级三好学生标兵</div>
             </div>
         </div>
 
-        <!-- Experience -->
+        <!-- Projects -->
         <div class="section">
-            <div class="section-title">工作经验</div>
-            <div class="exp-item">
-                <div class="exp-header">
-                    <div class="exp-title">徐工电气技术有限公司</div>
-                    <div class="exp-date">2023.2 - 至今</div>
-                </div>
-                <div class="exp-company">技术开发部 · 电气工程师</div>
-                <div class="exp-desc">
-                    月薪 9,500 / 年薪 130,000<br>
-                    离职原因：考虑到自身职业规划发展，希望寻求更有发展前景的长期工作机会
-                </div>
+            <div class="section-title">项目经历</div>
+            <div class="project">
+                <div class="project-title">大黄蜂降本增效项目</div>
+                <div class="project-desc">针对韩国市场需求专门设立的一项优化计划。在充分理解客户要求的基础上，对现有产品进行系统性改进，综合考量端子选型与现场装配施工等多方面因素，旨在实现成本降低与效率提升。在确保端子质量合格率及装配适用性的前提下，达成更优的经济效益与操作效能。</div>
+            </div>
+            <div class="project">
+                <div class="project-title">国产化替代项目</div>
+                <div class="project-desc">结合客户对电缆的各项性能指标及实际工况需求，提供专业、合理的选型与应用方案。通过对在用进口电缆开展国产化替代，确保电气性能、机械性能及环境适应性全面达标，同时有效降低采购成本，提升产品性价比与供应链安全性。</div>
             </div>
         </div>
 
-        <!-- Family -->
+        <!-- Self Evaluation -->
         <div class="section">
-            <div class="section-title">家庭信息</div>
-            <table class="family-table">
-                <thead>
-                    <tr>
-                        <th>关系</th>
-                        <th>姓名</th>
-                        <th>年龄</th>
-                        <th>工作单位</th>
-                        <th>职务</th>
-                        <th>电话</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>父亲</td>
-                        <td>王宜辉</td>
-                        <td>49</td>
-                        <td>江西宏安电梯有限公司</td>
-                        <td>工人</td>
-                        <td>17205017905</td>
-                    </tr>
-                    <tr>
-                        <td>母亲</td>
-                        <td>王素平</td>
-                        <td>47</td>
-                        <td>无</td>
-                        <td>务农</td>
-                        <td>16590850839</td>
-                    </tr>
-                    <tr>
-                        <td>兄弟</td>
-                        <td>王雨杰</td>
-                        <td>18</td>
-                        <td>睢宁金陵中专</td>
-                        <td>学生</td>
-                        <td>-</td>
-                    </tr>
-                </tbody>
-            </table>
+            <div class="section-title">自我评价</div>
+            <div class="eval">
+                本人具备扎实的专业知识基础，熟练掌握数控机床与数控车床的操作，能够独立完成数控程序的编写与优化。熟练运用CAD、SolidWorks等制图软件进行设计与建模，已考取初级工程师证书，并具备相应的理论知识与实践技能。曾参加罗克韦尔自动化技能大赛（特等奖），积累了大量实战经验，能够编写程序实现对伺服电动机驱动系统的精准控制。此外，在实习期间参与过多类自动化设备的现场管理、系统操控与维护工作，具有较强的实际应用能力和工程协调能力。<br><br>
+                作为一名党员，在大学期间，我始终秉持服务为民的根本宗旨，积极团结班级同学，密切联系基层，主动了解和回应班级同学的实际需求，切实履行党员责任与义务。积极投身各类志愿服务与社会实践，包括担任马拉松赛事志愿者、走进养老院为老人打扫卫生、陪伴关怀并帮助解决实际困难。通过这些实践，进一步增强了我的宗旨意识和服务能力，也更坚定了为人民服务的信念。
+            </div>
         </div>
 
-        <!-- Statement -->
+        <!-- Campus Activities -->
         <div class="section">
-            <div class="section-title">本人声明</div>
-            <div class="statement">
-                1. 本表为本人亲自填写，表内所填内容均属事实<br>
-                2. 本人自愿接受背景调查，如有虚假，愿受辞退处分<br>
-                3. 本人自愿接受并遵守公司各项规章制度<br>
-                4. 本人确认无刑事记录<br>
-                5. 本人确认无亲属朋友在本公司就职
+            <div class="section-title">校园活动</div>
+            <div class="exp-desc">
+                · 参与组织"不忘初心，砥砺前行"戏剧社专场晚会活动<br>
+                · 大三期间担任校宣传部部长，组织多次海报、公众号的宣传<br>
+                · 任机器人智能协会社长，多次参与机器人智能大赛现场指导
             </div>
         </div>
 
         <div class="footer">
-            员工履历表 HRZP-05 · 更新日期：2026年3月17日
+            个人简历 · 更新日期：2026年3月
         </div>
     </div>
 </body>
